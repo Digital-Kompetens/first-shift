@@ -17,8 +17,11 @@ Alla tre världarna har samma kod. Det enda som skiljer är texterna och färger
    - [Uppdrag 1: Nycklarna till baren](missions/01-keys-to-the-bar.md) – allt görs på GitHub-webben
    - [Uppdrag 2: Första skiftet](missions/02-first-shift.md) – hämta repot till VS Code
    - [Uppdrag 3: Ny inredning](missions/03-new-decor.md) – ett varv till, på egen hand
-
-Fler uppdrag om samarbete, kanban och merge conflicts kommer.
+   - [Uppdrag 4: Hoppsan](missions/04-oops.md) – ångra en ändring, före och efter commit
+   - [Uppdrag 5: Gästkocken](missions/05-guest-chef.md) – branch och pull request, i par
+   - [Uppdrag 6: Inför öppningen](missions/06-before-opening.md) – issues och kanban-tavla
+   - [Uppdrag 7: Bråk om specialen](missions/07-special-dispute.md) – merge conflict, i par
+   - [Uppdrag 8: Stora öppningen](missions/08-grand-opening.md) – visa och dela din sida
 
 ## Nivåer
 
