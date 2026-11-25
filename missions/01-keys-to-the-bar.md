@@ -14,13 +14,21 @@ Du har en egen kopia av projektet, sidan är publicerad och baren har ditt namn.
 3. **Välj värld.** Öppna mappen `src/worlds/` och välj en fil: `space.js`, `fantasy.js` eller `paradox.js`.
 4. **Redigera filen.** Klicka på pennan uppe till höger i filen.
 5. **Ge baren ett namn.** Leta upp `TODO (Beginner, task 1)`. Byt texten mellan citattecknen på raden `name:`. Behåll citattecknen och kommatecknet.
-6. **Spara med en commit.** Klicka **Commit changes**. Skriv ett meddelande, till exempel `Byt namn på baren`, och klicka **Commit changes** igen.
+6. **Spara med en commit.** Klicka **Commit changes**. Skriv ett meddelande, till exempel `Rename the bar`, och klicka **Commit changes** igen.
 7. **Vänta på publiceringen.** Öppna fliken **Actions**. Efter en eller två minuter blir körningen grön.
 8. **Öppna din sida.** Gå till **Settings → Pages**. Adressen står överst. Klicka på den.
 
 ## Klart när
 
 Din sida är öppen i webbläsaren och visar barens nya namn. Välj din värld med knapparna överst om den inte syns direkt.
+
+## Bra att veta: commit-meddelanden
+
+- **Skriv på engelska.** Det är standard, även i team där alla talar svenska.
+- **Skriv vad committen gör, inte vad du gjorde.** Meningen ska kunna avsluta "If applied, this commit will …". Därför skriver man `Rename the bar`, inte `Renamed the bar`. Git skriver själv på samma sätt, till exempel `Merge branch …` och `Revert …`.
+- **Håll det kort.** En mening räcker, gärna under 50 tecken.
+
+Det här är en konvention, inte en regel. Det viktigaste är att alla i ett projekt skriver på samma sätt.
 
 ## Om något går fel
 

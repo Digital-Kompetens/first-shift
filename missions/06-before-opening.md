@@ -18,7 +18,18 @@ Det här uppdraget handlar om planering. Kodändringen i slutet är liten.
 3. **Lägg in dina issues.** Längst ned i kolumnen **Todo**, klicka **Add item**, skriv `#` och välj dina issues en i taget.
 4. **Börja på en.** Dra en issue till **In Progress**. Kom ihåg numret, till exempel `#3`.
 5. **Gör ändringen.** Gör det som står i issuen, i VS Code eller på webben.
-6. **Stäng issuen med en commit.** Skriv numret i commit-meddelandet med ordet `Closes`, till exempel `Ny dagens special. Closes #3`. Gör commit och skicka upp.
+6. **Stäng issuen med en commit.** Skriv numret i commit-meddelandet med ordet `Closes`, till exempel `Add a new special of the day. Closes #3`. Gör commit och skicka upp.
+
+   <details>
+   <summary>Samma sak i terminalen</summary>
+
+   ```bash
+   git add .
+   git commit -m "Add a new special of the day. Closes #3"
+   git push
+   ```
+
+   </details>
 
 ## Klart när
 
@@ -27,6 +38,10 @@ Issuen är stängd av sig själv, och kortet har flyttat till **Done** på tavla
 ## I par
 
 Skapa tavlan i ett av era repon. Värden bjuder in partnern som i uppdrag 5. Välj en issue var och sätt dig själv som ansvarig under **Assignees**.
+
+## Bra att veta
+
+- **`Closes` fungerar också med `Fixes` och `Resolves`.** Det spelar ingen roll om du skriver stor eller liten bokstav.
 
 ## Om något går fel
 
