@@ -1,7 +1,8 @@
 /* =====================================================================
    Level: Intermediate
-   Shared layout for all worlds. It only uses the variables from the
-   theme files, so the same layout looks different in every world.
+   Shared layout for all worlds: the whole page is a bar.
+   It only uses the variables from the theme files, so the same layout
+   looks different in every world.
    ===================================================================== */
 
 *,
@@ -10,8 +11,29 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Text and signs grow a little on big screens. (Min, wanted, max) */
+  font-size: clamp(60%, 0.55rem + 0.6vw, 90%);
+}
+
 body {
   margin: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .app {
@@ -20,39 +42,41 @@ body {
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 1.125rem;
-  line-height: 1.6;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
 }
 
-.container {
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 4rem;
+/* ---------- The bar: one big stage ---------- */
+.bar {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr 9rem;
+  overflow: hidden;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
+.bar-scene,
+.bar-scene svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin: 0.5rem 0 0.25rem;
+.bar > *:not(.bar-scene) {
+  position: relative;
+  z-index: 1;
 }
 
-h2 {
-  font-size: 1.5rem;
-  margin: 0 0 1rem;
+/* ---------- Top bar: world switcher and motion button ---------- */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
 }
 
-.tagline {
-  color: var(--color-muted);
-  margin: 0 0 2rem;
-}
-
-/* World switcher */
 .switcher {
   display: flex;
   flex-wrap: wrap;
@@ -63,16 +87,16 @@ h2 {
 .switcher-label {
   color: var(--color-muted);
   font-size: 0.95rem;
-  margin-right: 0.25rem;
 }
 
-.switcher button {
+.switcher button,
+.motion-toggle {
   font: inherit;
   font-size: 0.95rem;
   padding: 0.4rem 0.9rem;
   border-radius: var(--radius);
-  border: 2px solid var(--color-border);
-  background: var(--color-surface);
+  border: 2px solid var(--button-border);
+  background: var(--button-bg);
   color: var(--color-text);
   cursor: pointer;
 }
@@ -84,132 +108,439 @@ h2 {
   font-weight: 700;
 }
 
+.motion-toggle[aria-pressed='true'] {
+  border-color: var(--color-accent);
+}
+
 button:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
 }
 
-/* Cards */
-.card {
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
+/* ---------- Signs (name of the bar, opening hours) ---------- */
+.sign {
+  background: var(--sign-bg);
+  border: 4px solid var(--sign-edge);
   border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
+  color: var(--sign-text);
+  text-align: center;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.35), inset 0 0 0 3px rgba(255, 255, 255, 0.06);
 }
 
-/* Speech bubble */
-.bubble {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-.bubble-host {
-  flex: 0 0 auto;
-  min-width: 7rem;
-}
-
-.bubble-host-name {
+.sign h1,
+.sign h2 {
   font-family: var(--font-heading);
-  font-weight: 700;
-  margin: 0;
+  color: var(--sign-title);
+  line-height: 1.15;
 }
 
-.bubble-host-role {
-  color: var(--color-muted);
-  font-size: 0.85rem;
-  margin: 0;
-  max-width: 12rem;
+.name-sign {
+  justify-self: center;
+  margin-top: 1.75rem;
+  padding: 0.9rem 2.25rem 1rem;
+  max-width: min(38rem, 60vw);
 }
 
-.bubble-text {
-  position: relative;
-  flex: 1;
-  margin: 0;
-  background: var(--color-surface);
-  border: 2px solid var(--color-accent);
-  border-radius: var(--radius);
-  padding: 1rem 1.25rem;
+.name-sign h1 {
+  font-size: clamp(1.6rem, 2.4vw, 2.3rem);
 }
 
-/* Menu */
-.menu-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
+.name-sign .tagline {
+  margin-top: 0.35rem;
+  font-size: 1rem;
 }
 
-.menu-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.75rem;
+/* The chains the sign hangs from */
+.name-sign::before,
+.name-sign::after {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  height: 2rem;
+  width: 4px;
+  background: repeating-linear-gradient(to bottom, var(--sign-edge) 0 6px, transparent 6px 9px);
 }
 
-.menu-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.name-sign::before { left: 15%; }
+.name-sign::after { right: 15%; }
+
+.sign-small {
+  padding: 0.9rem 1.25rem 1rem;
 }
 
-.menu-item h3 {
-  font-size: 1.15rem;
-  margin: 0;
-}
-
-.menu-item p {
-  margin: 0.15rem 0 0;
-  color: var(--color-muted);
-}
-
-.menu-price {
-  white-space: nowrap;
-  font-weight: 700;
-}
-
-/* Special and opening hours */
-.special-text {
-  font-size: 1.25rem;
-  margin: 0;
+.sign-small h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .hours-list {
   margin: 0;
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.25rem 1.5rem;
+  gap: 0.45rem;
 }
 
 .hours-list dt {
   font-weight: 700;
+  color: var(--sign-title);
 }
 
 .hours-list dd {
   margin: 0;
 }
 
-.two-columns {
+.sign-note {
+  font-style: italic;
+}
+
+/* ---------- Main area: left, host, right ---------- */
+.bar-main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 22% 18% minmax(0, 1fr) 28%;
+  column-gap: 1.5rem;
+  padding: 0 2rem;
+  align-items: stretch;
+}
+
+.bar-left {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 1.5rem 0 3.5rem;
 }
 
-.two-columns .card {
-  margin-bottom: 0;
+.bar-right {
+  grid-column: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 0.5rem;
+  margin-top: -6.5rem;
 }
 
-@media (max-width: 40rem) {
-  .bubble {
-    flex-direction: column;
+/* ---------- Speech bubble ---------- */
+.bubble {
+  position: relative;
+  background: var(--bubble-bg);
+  color: var(--bubble-text);
+  border: 3px solid var(--bubble-text);
+  border-radius: 1.5rem;
+  padding: 1rem 1.25rem;
+  font-size: 1.15rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.3);
+}
+
+/* The tail of the bubble, pointing at the host */
+.bubble::before,
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  border-style: solid;
+}
+
+.bubble::before {
+  right: -1.6rem;
+  border-width: 0.8rem 0 0.8rem 1.6rem;
+  border-color: transparent transparent transparent var(--bubble-text);
+}
+
+.bubble::after {
+  right: -1.15rem;
+  margin-top: 0.25rem;
+  border-width: 0.55rem 0 0.55rem 1.2rem;
+  border-color: transparent transparent transparent var(--bubble-bg);
+}
+
+/* ---------- Host and name tag ---------- */
+.bar-host {
+  grid-column: 3;
+  position: relative;
+  align-self: end;
+  width: 130%;
+  max-width: 36rem;
+  margin: 0 0 -4rem -15%;
+}
+
+/* .host-picture svg {
+  display: block;
+  width: 100%;
+  height: auto;
+} */
+.host-picture svg {
+  max-height: 55vh;
+  width: auto;
+  margin: 0 auto;
+}
+.host-picture {
+  animation: host-arrive 0.4s ease-out both;
+}
+
+.nametag {
+  position: absolute;
+  left: var(--tag-left, 18%);
+  bottom: var(--tag-bottom, 22%);
+  transform: rotate(-5deg);
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 2px dashed rgba(255, 255, 255, 0.45);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+  cursor: help;
+}
+
+.world-space .nametag { --tag-left: 30%; --tag-bottom: 28%; border-style: solid; border-color: #7A818F; }
+.world-fantasy .nametag { --tag-left: 12%; --tag-bottom: 22%; }
+.world-paradox .nametag { --tag-left: 16%; --tag-bottom: 20%; border-radius: 999px; }
+
+/* ---------- Menu board ---------- */
+.menu-board {
+  background: var(--board-bg);
+  border: 10px solid var(--board-edge);
+  border-radius: var(--radius);
+  color: var(--board-text);
+  padding: 1.25rem 1.5rem 1.4rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+}
+
+.menu-board h2 {
+  font-family: var(--font-heading);
+  color: var(--board-title);
+  text-align: center;
+  font-size: 1.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.menu-item h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+.menu-item p {
+  color: var(--board-muted);
+  font-size: 0.95rem;
+}
+
+.menu-price {
+  white-space: nowrap;
+  color: var(--board-price);
+  font-weight: 700;
+}
+
+.world-space .menu-board {
+  border-width: 2px;
+  box-shadow: 0 0 1.5rem rgba(95, 212, 196, 0.35), inset 0 0 2rem rgba(95, 212, 196, 0.12);
+}
+
+.world-paradox .menu-board {
+  border-width: 6px;
+  border-radius: 60% 40% 45% 55% / 10% 14% 10% 16%;
+  transform: rotate(1.5deg);
+}
+
+/* ---------- Today's special ---------- */
+.special {
+  position: relative;
+  align-self: center;
+  width: min(100%, 16rem);
+  background: var(--special-bg);
+  border: 5px solid var(--special-edge);
+  border-radius: var(--radius);
+  color: var(--special-text);
+  text-align: center;
+  padding: 0.9rem 1rem 1rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.4);
+}
+
+.special h2 {
+  font-family: var(--font-heading);
+  color: var(--special-title);
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.special-text {
+  font-size: 1.3rem;
+}
+
+.special-empty {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.world-space .special {
+  border-width: 3px;
+  box-shadow: 0 0 1.25rem rgba(255, 126, 184, 0.55);
+}
+
+.world-space .special h2 {
+  text-shadow: 0 0 8px rgba(255, 126, 184, 0.9);
+}
+
+/* The legs of the chalkboard stand in the inn */
+.world-fantasy .special::before,
+.world-fantasy .special::after {
+  content: '';
+  position: absolute;
+  bottom: -1.2rem;
+  width: 8px;
+  height: 1.6rem;
+  background: var(--special-edge);
+}
+
+.world-fantasy .special::before { left: 1rem; transform: rotate(10deg); }
+.world-fantasy .special::after { right: 1rem; transform: rotate(-10deg); }
+
+.world-fantasy .special { margin-bottom: 1rem; }
+
+.world-paradox .special {
+  transform: rotate(-4deg);
+  border-radius: 14px;
+  animation: float 7s ease-in-out infinite;
+}
+
+/* ---------- Counter with foot rail ---------- */
+.bar-counter {
+  z-index: 2 !important;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45)), var(--counter-front);
+  border-top: 1.1rem solid var(--counter-top);
+  box-shadow: 0 -2px 0 rgba(255, 255, 255, 0.25) inset, 0 -0.5rem 1.5rem rgba(0, 0, 0, 0.35);
+}
+
+.footrail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2rem;
+  height: 0.6rem;
+  border-radius: 0.3rem;
+  background: linear-gradient(to bottom, #FFF1C2, var(--rail) 45%, #6E5418);
+  box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.45);
+}
+
+/* Brackets holding the rail */
+.footrail::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.4rem;
+  height: 1.4rem;
+  background: repeating-linear-gradient(to right, transparent 0 calc(12.5% - 4px), var(--rail) calc(12.5% - 4px) 12.5%);
+  opacity: 0.85;
+}
+
+/* ---------- Animations ----------
+   Turned off by the motion button and by the visitor's setting for
+   reduced motion (see the end of this file). */
+@keyframes host-arrive {
+  from { opacity: 0; transform: translateY(0.75rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1); }
+  30% { transform: scaleY(0.92) skewX(2deg); }
+  60% { transform: scaleY(1.06) skewX(-2deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+.host-picture svg { animation: bob 5s ease-in-out infinite; }
+.world-paradox .host-picture svg { animation: drift 7s ease-in-out infinite; }
+.app .fx-blink { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+.app .fx-pulse { animation: pulse 2.4s ease-in-out infinite; }
+.app .fx-flicker { transform-box: fill-box; transform-origin: bottom; animation: flicker 1.2s ease-in-out infinite; }
+.app .fx-sway { transform-box: fill-box; transform-origin: bottom; animation: sway 6s ease-in-out infinite; }
+.app .fx-float { transform-box: fill-box; transform-origin: center; animation: drift 6s ease-in-out infinite; }
+.app .fx-float-slow { transform-box: fill-box; transform-origin: bottom; animation: drift 9s ease-in-out infinite; }
+
+.motion-off *,
+.motion-off *::before,
+.motion-off *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- Small screens: the signs are stacked ---------- */
+@media (max-width: 64rem) {
+  .bar {
+    grid-template-rows: auto auto auto 3rem;
   }
 
-  .two-columns {
+  .bar-main {
     grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+    padding: 0 1rem 2rem;
+  }
+
+  .bar-left,
+  .bar-right,
+  .bar-host {
+    grid-column: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .bar-host {
+    width: min(70%, 16rem);
+    grid-row: 1;
+    justify-self: center;
+  }
+
+  .bubble::before,
+  .bubble::after {
+    display: none;
   }
 }
 
@@ -220,5 +551,219 @@ button:focus-visible {
   *::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* Low screens, for example a TV with large scaling */
+@media (max-height: 650px) and (min-width: 64rem) {
+  .bar {
+    grid-template-rows: auto auto 1fr 4.5rem;
+  }
+
+  .name-sign {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1.5rem 0.6rem;
+  }
+
+  .name-sign .tagline {
+    display: none;
+  }
+
+  .bar-right {
+    margin-top: -4rem;
+    gap: 0.75rem;
+  }
+
+  .menu-board {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .menu-list {
+    gap: 0.5rem;
+  }
+
+  .menu-item p {
+    display: none;
+  }
+
+  .host-picture svg {
+    max-height: 48vh;
+  }
+
+  .footrail {
+    bottom: 1rem;
+  }
+}
+
+/* =====================================================================
+   Half screen and mobile
+   Paste-in addition: overrides the "Small screens" rules above.
+   ===================================================================== */
+
+/* Half screen, for example code on one side and the browser on the other */
+@media (min-width: 40.01rem) and (max-width: 64rem) {
+  .bar {
+    grid-template-rows: auto auto 1fr 5rem;
+  }
+
+  .topbar {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .name-sign {
+    margin-top: 1.5rem;
+    max-width: 90vw;
+  }
+
+  /* Let the signs inside the left and right groups be placed one by one */
+  .bar-left,
+  .bar-right {
+    display: contents;
+  }
+
+  .bar-main {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      'bubble hours'
+      'host   menu'
+      'host   special';
+    column-gap: 1.25rem;
+    row-gap: 1rem;
+    padding: 1rem 1.25rem 0;
+  }
+
+  .bubble { grid-area: bubble; align-self: start; margin-bottom: 1.5rem; top: 10rem;
+    z-index: 2;}
+  .hours { grid-area: hours; align-self: start; }
+  .menu-board { grid-area: menu; align-self: start; }
+  .special { grid-area: special; justify-self: center; margin-bottom: 1.25rem; }
+
+  .bar-host {
+    grid-area: host;
+    align-self: end;
+    justify-self: center;
+    width: 100%;
+    max-width: 24rem;
+    margin: 0 0 -3rem;
+    padding: 0;
+  }
+
+  .host-picture svg {
+    display: block;
+    max-height: 45vh;
+  }
+
+  /* The bubble's tail points down at the host */
+  .bubble::before,
+  .bubble::after {
+    display: block;
+    top: auto;
+    right: auto;
+    left: 45%;
+  }
+
+  .bubble::before {
+    bottom: -1.6rem;
+    border-width: 1.6rem 0.8rem 0 0.8rem;
+    border-color: var(--bubble-text) transparent transparent transparent;
+  }
+
+  .bubble::after {
+    bottom: -1.1rem;
+    margin: 0 0 0 0.25rem;
+    border-width: 1.2rem 0.55rem 0 0.55rem;
+    border-color: var(--bubble-bg) transparent transparent transparent;
+  }
+
+  .footrail {
+    bottom: 1.25rem;
+  }
+}
+
+/* Mobile: one column */
+@media (max-width: 40rem) {
+  .bar {
+    grid-template-rows: auto auto auto 2.5rem;
+  }
+
+  /* Darken the room a little so the signs stand out */
+  .bar-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .topbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .name-sign {
+    margin-top: 1.5rem;
+    max-width: 92vw;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .bar-left,
+  .bar-right {
+    display: contents;
+  }
+
+  .bar-main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'host' 'bubble' 'hours' 'menu' 'special';
+    row-gap: 1.25rem;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .bubble { grid-area: bubble; }
+  .hours { grid-area: hours; }
+  .menu-board { grid-area: menu; }
+  .special { grid-area: special; justify-self: center; margin-bottom: 1.25rem; }
+
+  .bar-host {
+    grid-area: host;
+    justify-self: center;
+    width: min(75%, 16rem);
+    margin: 0;
+    /* A small piece of counter under the host */
+    border-bottom: 0.8rem solid var(--counter-top);
+    border-radius: 0 0 4px 4px;
+  }
+
+  .host-picture svg {
+    display: block;
+    max-height: 40vh;
+  }
+
+  /* The bubble's tail points up at the host */
+  .bubble::before,
+  .bubble::after {
+    display: block;
+    top: auto;
+    right: auto;
+    left: 45%;
+  }
+
+  .bubble::before {
+    top: -1.6rem;
+    border-width: 0 0.8rem 1.6rem 0.8rem;
+    border-color: transparent transparent var(--bubble-text) transparent;
+  }
+
+  .bubble::after {
+    top: -1.1rem;
+    margin: 0 0 0 0.25rem;
+    border-width: 0 0.55rem 1.2rem 0.55rem;
+    border-color: transparent transparent var(--bubble-bg) transparent;
+  }
+
+  .footrail {
+    bottom: 0.75rem;
+  }
+
+  .footrail::before {
+    display: none;
   }
 }

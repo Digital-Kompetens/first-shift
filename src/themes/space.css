@@ -13,13 +13,45 @@
   --color-accent: #F2B33D;
   --color-on-accent: #14181F;
 
+  /* Page and buttons */
   --color-bg: #14181F;
-  --color-surface: #1F2531;
   --color-text: #ECE8DC;
   --color-muted: #AEB5C0;
-  --color-border: #3A4252;
+  --button-bg: #1F2531;
+  --button-border: #4A5262;
+
+  /* Signs: the name of the bar and the opening hours */
+  --sign-bg: #1C222D;
+  --sign-edge: #8A93A3;
+  --sign-title: var(--color-accent);
+  --sign-text: #D5DAE3;
+
+  /* Menu board: a holographic screen */
+  --board-bg: #0E1E2B;
+  --board-edge: #5FD4C4;
+  --board-title: #E6FBFF;
+  --board-text: #E6FBFF;
+  --board-muted: #A7DCE3;
+  --board-price: var(--color-accent);
+
+  /* Today's special: a neon sign */
+  --special-bg: #12141C;
+  --special-edge: #FF7EB8;
+  --special-title: #FF9CCB;
+  --special-text: #FFFFFF;
+
+  /* Speech bubble and name tag */
+  --bubble-bg: #ECE8DC;
+  --bubble-text: #14181F;
+  --tag-bg: #C9CED6;
+  --tag-text: #1C222D;
+
+  /* The bar counter */
+  --counter-top: #7A5A44;
+  --counter-front: #2E2119;
+  --rail: #C9A24A;
 
   --font-heading: Consolas, 'Courier New', monospace;
   --font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --radius: 2px;
+  --radius: 6px;
 }

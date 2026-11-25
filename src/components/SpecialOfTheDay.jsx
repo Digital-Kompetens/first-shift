@@ -1,19 +1,17 @@
 // =====================================================================
 // Level: Intermediate
-// Shows today's special from the world file.
+// Today's special, shown as a sign standing on the counter.
 // =====================================================================
 
 export default function SpecialOfTheDay({ text }) {
   const hasText = typeof text === 'string' && text.trim() !== '';
 
   return (
-    <section className="card" aria-labelledby="special-heading">
+    <section className="special" aria-labelledby="special-heading">
       <h2 id="special-heading">Dagens special</h2>
-      {hasText ? (
-        <p className="special-text">{text}</p>
-      ) : (
-        <p className="tagline">Ingen special än.</p>
-      )}
+      <p className={hasText ? 'special-text' : 'special-text special-empty'}>
+        {hasText ? text : 'Ingen special än'}
+      </p>
     </section>
   );
 }

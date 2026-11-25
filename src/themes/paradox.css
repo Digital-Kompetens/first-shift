@@ -3,21 +3,53 @@
    Theme: Café Paradox
    Level: Beginner and up
 
-   Colors are written as hex codes, for example #2F7D79.
+   Colors are written as hex codes, for example #F2C14E.
    Tip: search for "color picker" in your browser to find new codes.
-   Keep text readable: dark text on a light background, or the other way round.
+   Keep text readable: light text on a dark background, or the other way round.
    ===================================================================== */
 
 .world-paradox {
-  /* TODO (Beginner, task 4): Change the accent color, for example to #B0436E. */
-  --color-accent: #2F7D79;
-  --color-on-accent: #FDFBFF;
+  /* TODO (Beginner, task 4): Change the accent color, for example to #F28AA6. */
+  --color-accent: #F2C14E;
+  --color-on-accent: #241A3A;
 
-  --color-bg: #F1ECFA;
-  --color-surface: #FDFBFF;
-  --color-text: #2A2340;
-  --color-muted: #574E72;
-  --color-border: #CFC4E6;
+  /* Page and buttons */
+  --color-bg: #1F1A33;
+  --color-text: #F3ECFF;
+  --color-muted: #CDBFE8;
+  --button-bg: #2C2448;
+  --button-border: #6A5A96;
+
+  /* Signs: the name of the café and the opening hours (brass and plum) */
+  --sign-bg: #2C1F45;
+  --sign-edge: #E8C25A;
+  --sign-title: var(--color-accent);
+  --sign-text: #E8DDF7;
+
+  /* Menu board: a frame that is not quite the right shape */
+  --board-bg: #2A1F42;
+  --board-edge: #E8C25A;
+  --board-title: #F3ECFF;
+  --board-text: #F3ECFF;
+  --board-muted: #CDBFE8;
+  --board-price: #9FE8F0;
+
+  /* Today's special: a floating card */
+  --special-bg: #F3ECFF;
+  --special-edge: #B0436E;
+  --special-title: #8A2E58;
+  --special-text: #241A3A;
+
+  /* Speech bubble and name tag */
+  --bubble-bg: #FDFBFF;
+  --bubble-text: #2A2340;
+  --tag-bg: #F2C14E;
+  --tag-text: #241A3A;
+
+  /* The bar counter */
+  --counter-top: #E9E0F7;
+  --counter-front: #3E2A5E;
+  --rail: #E8C25A;
 
   --font-heading: 'Trebuchet MS', 'Segoe UI', sans-serif;
   --font-body: 'Trebuchet MS', 'Segoe UI', sans-serif;

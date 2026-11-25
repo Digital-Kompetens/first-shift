@@ -57,6 +57,7 @@ npm run dev
 
 ## För dig som underhåller mallen
 
+- Bilderna, alltså scenerna och värdarna i tre humör, är SVG-filer i `src/art/`. De är ritade från grunden och fria att ändra.
 - Publiceringen sker med `.github/workflows/deploy.yml`. Den läser repots namn själv, så ingen inställning behöver ändras i kopior.
 - `package-lock.json` ska finnas i repot. Uppdatera beroenden med `npm update` och committa den nya låsfilen.
 - Ändringar i mallen görs med pull request. Kopior som redan har skapats påverkas inte.

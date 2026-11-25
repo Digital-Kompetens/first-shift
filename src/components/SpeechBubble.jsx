@@ -7,25 +7,22 @@
 // a menu item. Add new lines to the world files and choose them here.
 // =====================================================================
 
-function chooseLine(world) {
+// Returns which mood the host is in: 'missingHours', 'missingSpecial' or 'allGood'.
+// The same name is used for the host's line and for the host's picture.
+export function chooseMood(world) {
   const hasHours = Array.isArray(world.openingHours) && world.openingHours.length > 0;
   const hasSpecial = typeof world.specialOfTheDay === 'string' && world.specialOfTheDay.trim() !== '';
 
-  if (!hasHours) return world.lines.missingHours;
-  if (!hasSpecial) return world.lines.missingSpecial;
-  return world.lines.allGood;
+  if (!hasHours) return 'missingHours';
+  if (!hasSpecial) return 'missingSpecial';
+  return 'allGood';
 }
 
-export default function SpeechBubble({ world }) {
+export default function SpeechBubble({ world, mood }) {
   return (
-    <section className="bubble" aria-label={`${world.host.name} säger`}>
-      <div className="bubble-host">
-        <p className="bubble-host-name">{world.host.name}</p>
-        <p className="bubble-host-role">{world.host.role}</p>
-      </div>
-      <p className="bubble-text" aria-live="polite">
-        {chooseLine(world)}
-      </p>
-    </section>
+    <p className="bubble" aria-live="polite">
+      <span className="sr-only">{world.host.name} säger: </span>
+      {world.lines[mood]}
+    </p>
   );
 }
