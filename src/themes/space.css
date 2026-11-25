@@ -1,0 +1,25 @@
+/* =====================================================================
+   SAFE TO EDIT
+   Theme: The bar at the end of the belt (space)
+   Level: Beginner and up
+
+   Colors are written as hex codes, for example #F2B33D.
+   Tip: search for "color picker" in your browser to find new codes.
+   Keep text readable: light text on a dark background, or the other way round.
+   ===================================================================== */
+
+.world-space {
+  /* TODO (Beginner, task 4): Change the accent color, for example to #5FD4C4. */
+  --color-accent: #F2B33D;
+  --color-on-accent: #14181F;
+
+  --color-bg: #14181F;
+  --color-surface: #1F2531;
+  --color-text: #ECE8DC;
+  --color-muted: #AEB5C0;
+  --color-border: #3A4252;
+
+  --font-heading: Consolas, 'Courier New', monospace;
+  --font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --radius: 2px;
+}

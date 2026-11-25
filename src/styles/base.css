@@ -1,0 +1,224 @@
+/* =====================================================================
+   Level: Intermediate
+   Shared layout for all worlds. It only uses the variables from the
+   theme files, so the same layout looks different in every world.
+   ===================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0.5rem 0 0.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.tagline {
+  color: var(--color-muted);
+  margin: 0 0 2rem;
+}
+
+/* World switcher */
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.switcher-label {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-right: 0.25rem;
+}
+
+.switcher button {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.switcher button[aria-pressed='true'] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 700;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Speech bubble */
+.bubble {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.bubble-host {
+  flex: 0 0 auto;
+  min-width: 7rem;
+}
+
+.bubble-host-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin: 0;
+}
+
+.bubble-host-role {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  margin: 0;
+  max-width: 12rem;
+}
+
+.bubble-text {
+  position: relative;
+  flex: 1;
+  margin: 0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+}
+
+/* Menu */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.75rem;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.menu-item h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.menu-item p {
+  margin: 0.15rem 0 0;
+  color: var(--color-muted);
+}
+
+.menu-price {
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+/* Special and opening hours */
+.special-text {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.hours-list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1.5rem;
+}
+
+.hours-list dt {
+  font-weight: 700;
+}
+
+.hours-list dd {
+  margin: 0;
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.two-columns .card {
+  margin-bottom: 0;
+}
+
+@media (max-width: 40rem) {
+  .bubble {
+    flex-direction: column;
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Respect the visitor's setting for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

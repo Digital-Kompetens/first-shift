@@ -1,0 +1,25 @@
+/* =====================================================================
+   SAFE TO EDIT
+   Theme: The Half Dragon Inn (fantasy)
+   Level: Beginner and up
+
+   Colors are written as hex codes, for example #8C2F1B.
+   Tip: search for "color picker" in your browser to find new codes.
+   Keep text readable: dark text on a light background, or the other way round.
+   ===================================================================== */
+
+.world-fantasy {
+  /* TODO (Beginner, task 4): Change the accent color, for example to #2F5D3A. */
+  --color-accent: #8C2F1B;
+  --color-on-accent: #FBF5E6;
+
+  --color-bg: #F1E6CC;
+  --color-surface: #FBF5E6;
+  --color-text: #2B1D12;
+  --color-muted: #5C4632;
+  --color-border: #C9B48A;
+
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-body: Georgia, 'Times New Roman', serif;
+  --radius: 6px;
+}

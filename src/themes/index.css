@@ -1,0 +1,10 @@
+/* =====================================================================
+   Level: Intermediate
+   Loads one theme file per world. Each theme sets the same variables,
+   so the layout in src/styles/base.css works for every world.
+   TODO (Intermediate, own world): add a line for your new theme here.
+   ===================================================================== */
+
+@import './space.css';
+@import './fantasy.css';
+@import './paradox.css';
